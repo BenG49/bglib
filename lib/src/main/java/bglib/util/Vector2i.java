@@ -200,6 +200,10 @@ public class Vector2i {
         return avg(new ArrayList<Vector2i>(Arrays.asList(a, b)));
     }
 
+    public Vector2i mod(int divisor) {
+        return new Vector2i(x%divisor, y%divisor);
+    }
+
     // thanks to Sam B from StuyLib for this method
     public Vector2i rotate(Angle angle, Vector2i origin) {
         Vector2i point = this.sub(origin);

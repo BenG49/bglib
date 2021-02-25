@@ -200,6 +200,10 @@ public class Vector2d {
         return avg(new ArrayList<Vector2d>(Arrays.asList(a.asVector2d(), b.asVector2d())));
     }
 
+    public Vector2d mod(double divisor) {
+        return new Vector2d(x%divisor, y%divisor);
+    }
+
     // thanks to Sam B from StuyLib for this method
     public Vector2d rotate(Angle angle, Vector2d origin) {
         Vector2d point = this.sub(origin);
