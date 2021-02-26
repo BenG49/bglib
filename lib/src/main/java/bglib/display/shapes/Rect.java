@@ -1,49 +1,52 @@
 package bglib.display.shapes;
 
+import bglib.util.*;
+
 import java.awt.*;
 import java.awt.Graphics2D;
 
-import bglib.util.RectType;
-import bglib.util.Vector2i;
-
 public class Rect extends Shape {
-    private final int x, y, width, height, border;
-    private final Color c;
+    protected final RectType rect;
+    protected final int border;
+    protected final Color color;
 
-    public Rect(RectType rect, int border, Color c) {
-        this(rect.getPos().floor(), rect.getSize().floor(), border, c);
+    protected final boolean useConversion;
+
+    public Rect(RectType rect, int border, Color color) {
+        this(rect, border, color, true);
     }
-    public Rect(Vector2i pos, Vector2i size, int border, Color c) {
-        this(pos.x, pos.y, size.x, size.y, border, c);
-    }
-    public Rect(Vector2i pos, int width, int height, int border, Color c) {
-        this(pos.x, pos.y, width, height, border, c);
-    }
-    public Rect(Vector2i pos, int size, int border, Color c) {
-        this(pos.x, pos.y, size, size, border, c);
-    }
-    public Rect(int x, int y, int width, int height, int border, Color c) {
-        if (width < 0) {
-            x += width;
-            width *= -1;
+    public Rect(RectType rect, int border, Color color, boolean useConversion) {
+        if (rect.getSize().x < 0) {
+            rect.setPos(rect.getPos().add(new Vector2d(rect.getSize().x, 0)));
+            rect.setSize(new Vector2d(-rect.getSize().x, rect.getSize().y));
         }
-        if (height < 0) {
-            y += height;
-            height *= -1;
+        if (rect.getSize().y < 0) {
+            rect.setPos(rect.getPos().add(new Vector2d(0, rect.getSize().y)));
+            rect.setSize(new Vector2d(rect.getSize().x, -rect.getSize().y));
         }
 
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.rect = rect;
         this.border = border;
-        this.c = c;
+        this.color = color;
+        this.useConversion = useConversion;
     }
 
     @Override
-    public void draw(Graphics2D g) {
-        g.setColor(c);
-        g.setStroke(new BasicStroke(border));
-        g.drawRect(x, y, width, height);
+    public void draw(Conversion conversion, Graphics2D g) {
+        Vector2i pos;
+        Vector2i size;
+        
+        if (useConversion) {
+            pos = conversion.convert(rect.getPos().floor());
+            size = conversion.convert(rect.getPos().add(rect.getSize()).sub(pos).floor());
+        } else {
+            pos = rect.getPos().floor();
+            size = rect.getSize().floor();
+        }
+
+        g.setColor(color);
+        if (border > 0)
+            g.setStroke(new BasicStroke(border));
+        g.drawRect(pos.x, pos.y, size.x, size.y);
     }
 }

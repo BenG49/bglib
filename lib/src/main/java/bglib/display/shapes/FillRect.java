@@ -1,44 +1,24 @@
 package bglib.display.shapes;
 
 import java.awt.*;
-import java.awt.Graphics2D;
+
+import bglib.util.RectType;
 import bglib.util.Vector2i;
 
-public class FillRect extends Shape {
-    private final int x, y, width, height, border;
-    private final Color fill;
+public class FillRect extends Rect {
 
-    public FillRect(Vector2i pos, Vector2i size, int border, Color background) {
-        this(pos.x, pos.y, size.x, size.y, border, background);
-    }
-    public FillRect(Vector2i pos, int width, int height, int border, Color background) {
-        this(pos.x, pos.y, width, height, border, background);
-    }
-    public FillRect(Vector2i pos, int size, int border, Color background) {
-        this(pos.x, pos.y, size, size, border, background);
-    }
-    public FillRect(int x, int y, int width, int height, int border, Color fill) {
-        if (width < 0) {
-            x += width;
-            width *= -1;
-        }
-        if (height < 0) {
-            y += height;
-            height *= -1;
-        }
-
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.border = border;
-        this.fill = fill;
+    public FillRect(RectType rect, int border, Color color) {
+        super(rect, border, color);
     }
 
     @Override
-    public void draw(Graphics2D g) {
-        g.setColor(fill);
+    public void draw(Conversion conversion, Graphics2D g) {
+        Vector2i pos = conversion.convert(rect.getPos().round());
+        Vector2i size = conversion.convert(rect.getPos().add(rect.getSize()).round()).sub(pos);
+        System.out.println(rect.getPos().round()+", "+pos);
+        System.out.println(rect.getSize().round()+", "+size);
+        g.setColor(color);
         g.setStroke(new BasicStroke(border));
-        g.fillRect(x, y, width, height);
+        g.fillRect(pos.x, pos.y, size.x, size.y);
     }
 }
