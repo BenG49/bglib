@@ -1,5 +1,6 @@
 package bglib.display.shapes;
 
+import bglib.util.Vector2d;
 import bglib.util.Vector2i;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.awt.Graphics2D;
 
 public class Text extends Shape {
     private final List<String> text;
-    private final Vector2i pos;
+    private final Vector2d pos;
     private final Color color;
     private final Font font;
 
@@ -20,12 +21,15 @@ public class Text extends Shape {
     private static final int PADDING = 10;
 
     public Text(String text, Vector2i pos, Color color, Font font, boolean useConversion) {
+        this(new ArrayList<String>(Arrays.asList(text)), pos.asVector2d(), color, font, useConversion);
+    }
+    public Text(String text, Vector2d pos, Color color, Font font, boolean useConversion) {
         this(new ArrayList<String>(Arrays.asList(text)), pos, color, font, useConversion);
     }
-    public Text(String[] text, Vector2i pos, Color color, Font font, boolean useConversion) {
+    public Text(String[] text, Vector2d pos, Color color, Font font, boolean useConversion) {
         this(Arrays.asList(text), pos, color, font, useConversion);
     }
-    public Text(List<String> text, Vector2i pos, Color color, Font font, boolean useConversion) {
+    public Text(List<String> text, Vector2d pos, Color color, Font font, boolean useConversion) {
         this.text = text;
         this.pos = pos;
         this.color = color;
@@ -39,7 +43,7 @@ public class Text extends Shape {
         if (useConversion)
             draw = conversion.convert(pos);
         else
-            draw = pos;
+            draw = pos.floor();
 
         g.setFont(font);
         g.setColor(color);

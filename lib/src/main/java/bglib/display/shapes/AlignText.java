@@ -87,10 +87,10 @@ public class AlignText extends Shape {
         RectType draw;
 
         if (useConversion) {
-            Vector2i tempPos = conversion.convert(dimension.getPos().floor());
+            Vector2i tempPos = conversion.convert(dimension.getPos());
             draw = new RectType(
                 tempPos.asVector2d(),
-                conversion.convert(dimension.getPos().add(dimension.getSize()).sub(tempPos).floor()).asVector2d()
+                conversion.convert(dimension.getPos().add(dimension.getSize()).sub(tempPos)).asVector2d()
             );
         } else
             draw = dimension;

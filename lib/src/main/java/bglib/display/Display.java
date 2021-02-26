@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -51,7 +50,7 @@ public class Display extends JFrame {
     }
 
     public void draw() {
-        draw((pos) -> (pos));
+        draw((pos) -> (pos.floor()));
     }
     public void draw(Conversion conversion) {
         try {

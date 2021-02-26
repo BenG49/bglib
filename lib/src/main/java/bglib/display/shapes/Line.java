@@ -3,19 +3,23 @@ package bglib.display.shapes;
 import java.awt.*;
 import java.awt.Graphics2D;
 
+import bglib.util.Vector2d;
 import bglib.util.Vector2i;
 
 public class Line extends Shape {
-    private final Vector2i posA, posB;
+    private final Vector2d posA, posB;
     private final Color color;
     private final int width;
 
     private final boolean useConversion;
 
     public Line(Vector2i posA, Vector2i posB, Color color, int width) {
+        this(posA.asVector2d(), posB.asVector2d(), color, width, true);
+    }
+    public Line(Vector2d posA, Vector2d posB, Color color, int width) {
         this(posA, posB, color, width, true);
     }
-    public Line(Vector2i posA, Vector2i posB, Color color, int width, boolean useConversion) {
+    public Line(Vector2d posA, Vector2d posB, Color color, int width, boolean useConversion) {
         this.posA = posA;
         this.posB = posB;
         this.color = color;
@@ -32,8 +36,8 @@ public class Line extends Shape {
             drawA = conversion.convert(posA);
             drawB = conversion.convert(posB);
         } else {
-            drawA = posA;
-            drawB = posB;
+            drawA = posA.floor();
+            drawB = posB.floor();
         }
 
         g.setColor(color);

@@ -13,12 +13,20 @@ public class FillRect extends Rect {
 
     @Override
     public void draw(Conversion conversion, Graphics2D g) {
-        Vector2i pos = conversion.convert(rect.getPos().round());
-        Vector2i size = conversion.convert(rect.getPos().add(rect.getSize()).round()).sub(pos);
-        System.out.println(rect.getPos().round()+", "+pos);
-        System.out.println(rect.getSize().round()+", "+size);
+        Vector2i pos;
+        Vector2i size;
+        
+        if (useConversion) {
+            pos = conversion.convert(rect.getPos());
+            size = conversion.convert(rect.getPos().add(rect.getSize()).sub(pos));
+        } else {
+            pos = rect.getPos().floor();
+            size = rect.getSize().floor();
+        }
+
         g.setColor(color);
-        g.setStroke(new BasicStroke(border));
+        if (border > 0)
+            g.setStroke(new BasicStroke(border));
         g.fillRect(pos.x, pos.y, size.x, size.y);
     }
 }

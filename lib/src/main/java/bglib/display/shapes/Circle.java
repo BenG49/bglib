@@ -3,19 +3,23 @@ package bglib.display.shapes;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
+import bglib.util.Vector2d;
 import bglib.util.Vector2i;
 
 public class Circle extends Shape {
-    private final Vector2i pos;
+    private final Vector2d pos;
     private final int diameter;
     private final Color color;
 
     private final boolean useConversion;
 
     public Circle(Vector2i pos, int diameter, Color color) {
+        this(pos.asVector2d(), diameter, color, true);
+    }
+    public Circle(Vector2d pos, int diameter, Color color) {
         this(pos, diameter, color, true);
     }
-    public Circle(Vector2i pos, int diameter, Color color, boolean useConversion) {
+    public Circle(Vector2d pos, int diameter, Color color, boolean useConversion) {
         this.pos = pos;
         this.diameter = diameter;
         this.color = color;
@@ -28,7 +32,7 @@ public class Circle extends Shape {
         if (useConversion)
             draw = conversion.convert(pos);
         else
-            draw = pos;
+            draw = pos.floor();
 
         g.setColor(color);
         g.fillOval(draw.x, draw.y, diameter, diameter);
