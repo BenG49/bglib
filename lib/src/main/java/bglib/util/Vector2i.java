@@ -40,20 +40,24 @@ public class Vector2i {
         this.y = copy.y;
     }
 
-    public void setX(int x) {
+    public Vector2i setX(int x) {
         this.x = x;
+        return this;
     }
 
-    public void setY(int y) {
+    public Vector2i setY(int y) {
         this.y = y;
+        return this;
     }
 
-    public void addX(int i) {
+    public Vector2i addX(int i) {
         this.x += i;
+        return this;
     }
 
-    public void addY(int i) {
+    public Vector2i addY(int i) {
         this.y += i;
+        return this;
     }
 
     public Vector2i add(Vector2i a) {

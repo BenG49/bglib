@@ -40,20 +40,24 @@ public class Vector2d {
         this.y = copy.y;
     }
 
-    public void setX(double x) {
+    public Vector2d setX(double x) {
         this.x = x;
+        return this;
     }
 
-    public void setY(double y) {
+    public Vector2d setY(double y) {
         this.y = y;
+        return this;
     }
 
-    public void addX(double i) {
+    public Vector2d addX(double i) {
         this.x += i;
+        return this;
     }
 
-    public void addY(double i) {
+    public Vector2d addY(double i) {
         this.y += i;
+        return this;
     }
 
     public Vector2d add(Vector2d a) {
