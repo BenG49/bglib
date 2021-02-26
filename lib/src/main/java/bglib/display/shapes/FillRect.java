@@ -7,6 +7,9 @@ import bglib.util.Vector2i;
 
 public class FillRect extends Rect {
 
+    public FillRect(RectType rect, int border, Color color, boolean useConversion) {
+        super(rect, border, color, useConversion);
+    }
     public FillRect(RectType rect, int border, Color color) {
         super(rect, border, color);
     }
