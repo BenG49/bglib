@@ -16,15 +16,6 @@ public class Rect extends Shape {
         this(rect, border, color, true);
     }
     public Rect(RectType rect, int border, Color color, boolean useConversion) {
-        if (rect.getSize().x < 0) {
-            rect.setPos(rect.getPos().add(new Vector2d(rect.getSize().x, 0)));
-            rect.setSize(new Vector2d(-rect.getSize().x, rect.getSize().y));
-        }
-        if (rect.getSize().y < 0) {
-            rect.setPos(rect.getPos().add(new Vector2d(0, rect.getSize().y)));
-            rect.setSize(new Vector2d(rect.getSize().x, -rect.getSize().y));
-        }
-
         this.rect = rect;
         this.border = border;
         this.color = color;
