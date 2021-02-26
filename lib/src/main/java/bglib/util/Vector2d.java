@@ -48,6 +48,14 @@ public class Vector2d {
         this.y = y;
     }
 
+    public void addX(double i) {
+        this.x += i;
+    }
+
+    public void addY(double i) {
+        this.y += i;
+    }
+
     public Vector2d add(Vector2d a) {
         return new Vector2d(this.x+a.x, this.y+a.y);
     }
