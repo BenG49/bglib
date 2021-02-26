@@ -19,13 +19,12 @@ public class FillRect extends Rect {
         Vector2i pos;
         Vector2i size;
         
-        if (useConversion) {
+        if (useConversion)
             pos = conversion.convert(rect.getPos());
-            size = conversion.convert(rect.getSize());
-        } else {
+        else
             pos = rect.getPos().floor();
-            size = rect.getSize().floor();
-        }
+
+        size = rect.getSize().floor();
 
         g.setColor(color);
         if (border > 0)

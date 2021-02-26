@@ -31,18 +31,20 @@ public class Rect extends Shape {
         this.useConversion = useConversion;
     }
 
+    /**
+     * Note: could use two Conversions for pos and size, but I think that won't be great for other shapes
+     */
     @Override
     public void draw(Conversion conversion, Graphics2D g) {
         Vector2i pos;
         Vector2i size;
         
-        if (useConversion) {
+        if (useConversion)
             pos = conversion.convert(rect.getPos());
-            size = conversion.convert(rect.getSize());
-        } else {
+        else
             pos = rect.getPos().floor();
-            size = rect.getSize().floor();
-        }
+
+        size = rect.getSize().floor();
 
         g.setColor(color);
         if (border > 0)
