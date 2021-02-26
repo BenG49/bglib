@@ -88,8 +88,16 @@ public class Vector2i {
         return new Vector2i(this.x*a, this.y*a);
     }
 
+    public Vector2i mul(Vector2i a) {
+        return new Vector2i(this.x*a.x, this.y*a.y);
+    }
+
     public Vector2d div(int a) {
         return new Vector2d(this.x/a, this.y/a);
+    }
+
+    public Vector2d div(Vector2i a) {
+        return new Vector2d(this.x/a.x, this.y/a.y);
     }
 
     public boolean within(Vector2i a, Vector2i b) {
