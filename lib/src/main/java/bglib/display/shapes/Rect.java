@@ -38,7 +38,7 @@ public class Rect extends Shape {
         
         if (useConversion) {
             pos = conversion.convert(rect.getPos());
-            size = conversion.convert(rect.getPos().add(rect.getSize()).sub(pos));
+            size = conversion.convert(rect.getSize());
         } else {
             pos = rect.getPos().floor();
             size = rect.getSize().floor();
