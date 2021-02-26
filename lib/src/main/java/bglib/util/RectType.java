@@ -6,6 +6,9 @@ public class RectType {
     public RectType(double widthHeight) {
         this(0, 0, widthHeight, widthHeight);
     }
+    public RectType(int xPos, int yPos, int sizeX, int sizeY) {
+        this(new Vector2i(xPos, yPos), new Vector2i(sizeX, sizeY));
+    }
     public RectType(double xPos, double yPos, double sizeX, double sizeY) {
         this(new Vector2d(xPos, yPos), new Vector2d(sizeX, sizeY));
     }
