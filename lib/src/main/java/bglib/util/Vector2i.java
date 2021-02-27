@@ -19,8 +19,7 @@ public class Vector2i {
     }
 
     public Vector2i(int xy) {
-        x = xy;
-        y = xy;
+        this(xy, xy);
     }
 
     public Vector2i(String asString) {
@@ -36,9 +35,9 @@ public class Vector2i {
     }
 
     public Vector2i(Vector2i copy) {
-        this.x = copy.x;
-        this.y = copy.y;
+        this(copy.x, copy.y);
     }
+
 
     public Vector2i setX(int x) {
         this.x = x;
@@ -192,16 +191,6 @@ public class Vector2i {
         return max;
     }
 
-    public boolean equals(Object a) {
-        if (!(a instanceof Vector2i))
-            return false;
-        if (a == this)
-            return true;
-
-        Vector2i temp = (Vector2i) a;
-        return this.x == temp.x && this.y == temp.y;
-    }
-
     public static Vector2i avg(List<Vector2i> points) {
         int totalX = 0, totalY = 0;
 
@@ -233,6 +222,16 @@ public class Vector2i {
         );
 
         return origin.add(out);
+    }
+
+    public boolean equals(Object a) {
+        if (!(a instanceof Vector2i))
+            return false;
+        if (a == this)
+            return true;
+
+        Vector2i temp = (Vector2i) a;
+        return this.x == temp.x && this.y == temp.y;
     }
 
     public int hashCode() {

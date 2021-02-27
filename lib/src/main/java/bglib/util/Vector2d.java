@@ -19,26 +19,25 @@ public class Vector2d {
     }
 
     public Vector2d(double xy) {
-        x = xy;
-        y = xy;
+        this(xy, xy);
     }
 
     public Vector2d(String asString) {
         String[] coords = asString.replaceAll("\\)", "").replaceAll("\\(", "").replaceAll(" ", "").split(",");
         try {
-            x = Double.parseDouble(coords[0]);
-            y = Double.parseDouble(coords[1]);
+            this.x = Double.parseDouble(coords[0]);
+            this.y = Double.parseDouble(coords[1]);
         } catch (NullPointerException e) {
             System.out.println("Incorrect string given");
-            x = 0;
-            y = 0;
+            this.x = 0;
+            this.y = 0;
         }
     }
 
     public Vector2d(Vector2d copy) {
-        this.x = copy.x;
-        this.y = copy.y;
+        this(copy.x, copy.y);
     }
+
 
     public Vector2d setX(double x) {
         this.x = x;
@@ -188,16 +187,6 @@ public class Vector2d {
         return max;
     }
 
-    public boolean equals(Object a) {
-        if (!(a instanceof Vector2d))
-            return false;
-        if (a == this)
-            return true;
-
-        Vector2d temp = (Vector2d) a;
-        return this.x == temp.x && this.y == temp.y;
-    }
-
     public static Vector2d avg(List<Vector2d> points) {
         int totalX = 0, totalY = 0;
 
@@ -245,6 +234,16 @@ public class Vector2d {
 
     public Vector2i floor() {
         return new Vector2i((int)Math.floor(x), (int)Math.floor(y));
+    }
+
+    public boolean equals(Object a) {
+        if (!(a instanceof Vector2d))
+            return false;
+        if (a == this)
+            return true;
+
+        Vector2d temp = (Vector2d) a;
+        return this.x == temp.x && this.y == temp.y;
     }
 
     public int hashCode() {
