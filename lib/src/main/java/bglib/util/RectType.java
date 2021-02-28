@@ -44,4 +44,12 @@ public class RectType {
     public void setSize(Vector2d size) {
         this.size = new Vector2d(size);
     }
+
+    public Vector2d getCenter() {
+        return pos.add(size.div(2));
+    }
+
+    public String toString() {
+        return "Pos: "+pos+", Size: "+size;
+    }
 }

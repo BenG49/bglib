@@ -2,7 +2,7 @@ package bglib.util;
 
 public class Complexd {
 
-    private double a, b;
+    public double a, b;
 
     public Complexd(double a, double b) {
         this.a = a;
@@ -72,6 +72,14 @@ public class Complexd {
 
     public Complexd getConjugate() {
         return new Complexd(this.a, -this.b);
+    }
+
+    public double getDistance() {
+        return Math.sqrt(a*a+b*b);
+    }
+
+    public Vector2d asVector2d() {
+        return new Vector2d(this.a, this.b);
     }
 
     public boolean equals(Object a) {

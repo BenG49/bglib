@@ -20,10 +20,8 @@ public class Display extends JFrame {
     public final int WIDTH;
     public final int HEIGHT;
 
-    private Color background;
     private List<Shape> frameShapes;
-
-    protected Draw currentDraw;
+    private Draw panel;
 
     public Display() { this(500, 500, Color.WHITE, ""); }
     public Display(Color background) { this(500, 500, background, ""); }
@@ -32,7 +30,6 @@ public class Display extends JFrame {
 
         WIDTH = width;
         HEIGHT = height;
-        this.background = background;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -43,6 +40,8 @@ public class Display extends JFrame {
         getContentPane().setBackground(background);
 
         frameShapes = new ArrayList<Shape>();
+        panel = new Draw(background);
+        add(panel);
     }
 
     public void frameAdd(Shape shape) {
@@ -53,22 +52,17 @@ public class Display extends JFrame {
         draw((pos) -> (pos.floor()));
     }
     public void draw(Conversion conversion) {
-        try {
-            remove(currentDraw);
-        // using general exception to catch NullPointer and "AWT-EventQueue-0" errors
-        } catch(Exception e) {}
+        panel.removeAll();
+        panel.setShapes(frameShapes);
+        panel.setConversion(conversion);
+        panel.revalidate();
+        panel.repaint();
 
-        Draw d = new Draw(frameShapes, background, conversion);
-        currentDraw = d;
-       
-        add(d);
         revalidate();
         frameShapes = new ArrayList<Shape>();
     }
 
     public void setInternalBackground(Color background) {
-        this.background = background;
-
         getContentPane().setBackground(background);
     }
 
@@ -83,15 +77,25 @@ public class Display extends JFrame {
     }
 
     private class Draw extends JPanel {
-        private final List<Shape> shapes;
-        private final Conversion conversion;
+        private List<Shape> shapes;
+        private Conversion conversion;
 
+        public Draw(Color background) {
+            this(new ArrayList<Shape>(), background, (pos) -> (pos.floor()));
+        }
         public Draw(List<Shape> shapes, Color background, Conversion conversion) {
             this.shapes = shapes;
             this.conversion = conversion;
 
-            // setPreferredSize(new Dimension(1, 1));
             setBackground(background);
+        }
+
+        public void setShapes(List<Shape> shapes) {
+            this.shapes = shapes;
+        }
+
+        public void setConversion(Conversion conversion) {
+            this.conversion = conversion;
         }
 
         @Override

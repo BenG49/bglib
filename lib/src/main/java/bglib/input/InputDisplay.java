@@ -13,10 +13,10 @@ public class InputDisplay extends Display {
     private MouseTracker mouse;
     private MouseClick mouseClicks;
 
-    public InputDisplay() { this(500, 500, Color.WHITE); }
-    public InputDisplay(Color background) { this(500, 500, background); }
-    public InputDisplay(int width, int height, Color background) {
-        super(width, height, background, "");
+    public InputDisplay() { this(500, 500, Color.WHITE, ""); }
+    public InputDisplay(Color background) { this(500, 500, background, ""); }
+    public InputDisplay(int width, int height, Color background, String name) {
+        super(width, height, background, name);
 
         keyboard = new KeyTracker();
         mouse = new MouseTracker(this);
