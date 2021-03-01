@@ -49,6 +49,10 @@ public class RectType {
         return pos.add(size.div(2));
     }
 
+    public boolean within(Vector2d point) {
+        return point.x > pos.x && point.x < pos.x+size.x && point.y > pos.y && point.y < pos.y+size.y;
+    }
+
     public String toString() {
         return "Pos: "+pos+", Size: "+size;
     }

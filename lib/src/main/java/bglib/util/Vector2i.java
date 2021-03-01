@@ -11,7 +11,7 @@ import com.stuypulse.stuylib.math.Angle;
 public class Vector2i {
     public static final Vector2i ORIGIN = new Vector2i(0);
 
-    public int x, y;
+    public final int x, y;
 
     public Vector2i(int x, int y) {
         this.x = x;
@@ -24,13 +24,13 @@ public class Vector2i {
 
     public Vector2i(String asString) {
         String[] coords = asString.replaceAll("\\)", "").replaceAll("\\(", "").replaceAll(" ", "").split(",");
-        try {
-            x = Integer.parseInt(coords[0]);
-            y = Integer.parseInt(coords[1]);
-        } catch (NullPointerException e) {
+        if (coords.length != 2) {
             System.out.println("Incorrect string given");
             x = 0;
             y = 0;
+        } else {
+            x = Integer.parseInt(coords[0]);
+            y = Integer.parseInt(coords[1]);
         }
     }
 
@@ -38,37 +38,45 @@ public class Vector2i {
         this(copy.x, copy.y);
     }
 
+    public Vector2i(Angle angle, double distance) {
+        this.x = (int)(Math.cos(angle.toRadians())*distance);
+        this.y = (int)(Math.sin(angle.toRadians())*distance);
+    }
+
 
     public Vector2i setX(int x) {
-        this.x = x;
-        return this;
+        return new Vector2i(x, this.y);
     }
 
     public Vector2i setY(int y) {
-        this.y = y;
-        return this;
+        return new Vector2i(this.x, y);
     }
 
     public Vector2i addX(int i) {
-        this.x += i;
-        return this;
+        return new Vector2i(this.x+i, this.y);
     }
 
     public Vector2i addY(int i) {
-        this.y += i;
-        return this;
+        return new Vector2i(this.x, this.y+i);
     }
 
     public Vector2i add(Vector2i a) {
         return new Vector2i(this.x+a.x, this.y+a.y);
     }
 
-    public Vector2i sub(Vector2i a) {
-        return new Vector2i(this.x-a.x, this.y-a.y);
-    }
-
     public Vector2d add(Vector2d a) {
         return new Vector2d(this.x+a.x, this.y+a.y);
+    }
+
+    public Vector2i add(Angle angle, double distance) {
+        return this.add(new Vector2d(
+            Math.cos(angle.toRadians())*distance,
+            Math.sin(angle.toRadians())*distance
+        ).round());
+    }
+
+    public Vector2i sub(Vector2i a) {
+        return new Vector2i(this.x-a.x, this.y-a.y);
     }
 
     public Vector2d sub(Vector2d a) {
@@ -211,6 +219,13 @@ public class Vector2i {
 
     public Vector2i mod(int divisor) {
         return new Vector2i(x%divisor, y%divisor);
+    }
+
+    public double distance(Vector2i other) {
+        return Math.sqrt(
+            Math.pow(this.x-other.x, 2)+
+            Math.pow(this.y-other.y, 2)
+        );
     }
 
     // thanks to Sam B from StuyLib for this method

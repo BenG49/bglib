@@ -2,7 +2,7 @@ package bglib.util;
 
 public class Complexd {
 
-    public double a, b;
+    public final double a, b;
 
     public Complexd(double a, double b) {
         this.a = a;
@@ -18,15 +18,12 @@ public class Complexd {
     }
 
 
-
     public Complexd setA(double a) {
-        this.a = a;
-        return this;
+        return new Complexd(a, this.b);
     }
 
     public Complexd setB(double b) {
-        this.b = b;
-        return this;
+        return new Complexd(this.a, b);
     }
 
     public Complexd add(Complexd point) {
