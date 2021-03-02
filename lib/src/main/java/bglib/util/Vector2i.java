@@ -178,9 +178,9 @@ public class Vector2i {
 
         for (Vector2i i : data) {
             if (i.x < min.x)
-                min.setX(i.x);
+                min = min.setX(i.x);
             if (i.y < min.y)
-                min.setY(i.y);
+                min = min.setY(i.y);
         }
 
         return min;
@@ -191,9 +191,9 @@ public class Vector2i {
 
         for (Vector2i i : data) {
             if (i.x > max.x)
-                max.setX(i.x);
+                max = max.setX(i.x);
             if (i.y > max.y)
-                max.setY(i.y);
+                max = max.setY(i.y);
         }
 
         return max;
