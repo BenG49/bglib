@@ -9,9 +9,7 @@ import bglib.util.Vector2i;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,10 +20,16 @@ public class Display extends JFrame {
 
     private List<Shape> frameShapes;
     private Draw panel;
+    private JPanel layout;
 
-    public Display() { this(500, 500, Color.WHITE, ""); }
-    public Display(Color background) { this(500, 500, background, ""); }
+    public static final LayoutManager DEFAULT_MGR = new GridLayout(1, 0);
+
+    public Display() { this(500, 500, Color.WHITE, "", DEFAULT_MGR); }
+    public Display(Color background) { this(500, 500, background, "", DEFAULT_MGR); }
     public Display(int width, int height, Color background, String name) {
+        this(width, height, background, name, DEFAULT_MGR);
+    }
+    public Display(int width, int height, Color background, String name, LayoutManager manager) {
         super(name);
 
         WIDTH = width;
@@ -40,8 +44,11 @@ public class Display extends JFrame {
         getContentPane().setBackground(background);
 
         frameShapes = new ArrayList<Shape>();
+        layout = new JPanel(manager);
         panel = new Draw(background);
-        add(panel);
+
+        layout.add(panel);
+        add(layout);
     }
 
     public void frameAdd(Shape shape) {
@@ -74,6 +81,10 @@ public class Display extends JFrame {
         return new RectType(
             Vector2d.ORIGIN, getDSize().asVector2d()
         );
+    }
+
+    public void addComponent(Component c) {
+        layout.add(c);
     }
 
     private class Draw extends JPanel {

@@ -17,12 +17,12 @@ public class RectType {
     }
     public RectType(Vector2d pos, Vector2d size)  {
         if (size.x < 0) {
-            pos.setX(pos.x+size.x);
-            size.setX(-size.x);
+            pos = pos.setX(pos.x+size.x);
+            size = size.setX(-size.x);
         }
         if (size.y < 0) {
-            pos.setY(pos.y+size.y);
-            size.setY(-size.y);
+            pos = pos.setY(pos.y+size.y);
+            size = size.setY(-size.y);
         }
 
         this.pos = pos;
