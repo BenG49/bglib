@@ -1,2 +1,6 @@
 # bglib
-Java library that I use for some of my projects
+Archive from March 5, 2021
+
+## Used in:
+* https://github.com/BenG49/grapher
+* https://github.com/BenG49/minesweeper
